@@ -93,17 +93,36 @@ function init() {
   const loadingScreen = document.getElementById("loading-screen");
   const loadingBarFill = document.getElementById("loading-bar-fill");
   const loadingPercentage = document.getElementById("loading-percentage");
+  const totalLoadingSteps = 20;
+  let completedLoadingSteps = 0;
 
   loadingManager = new THREE.LoadingManager();
 
-  loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
-    const progress = Math.round((itemsLoaded / itemsTotal) * 100);
+  function updateLoadingProgress(progress) {
     if (loadingBarFill) loadingBarFill.style.width = progress + "%";
     if (loadingPercentage) loadingPercentage.textContent = progress + "%";
+  }
+
+  function completeLoadingStep() {
+    completedLoadingSteps += 1;
+    const progress = Math.min(
+      99,
+      Math.round((completedLoadingSteps / totalLoadingSteps) * 100),
+    );
+    updateLoadingProgress(progress);
+  }
+
+  loadingManager.onProgress = function () {
+    if (completedLoadingSteps === 0) {
+      updateLoadingProgress(1);
+    }
   };
 
   loadingManager.onLoad = function () {
-    hideLoadingScreen();
+    if (!loadingScreenHidden && completedLoadingSteps >= totalLoadingSteps) {
+      updateLoadingProgress(100);
+      hideLoadingScreen();
+    }
   };
 
   loadingManager.onError = function (url) {
@@ -187,8 +206,12 @@ function init() {
         );
 
         config.assign(loadedModel, loadedMixer);
+        completeLoadingStep();
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        console.error(e);
+        throw e;
+      });
   }
 
   async function loadWithConcurrency(items, worker, concurrency = 3) {
@@ -213,7 +236,7 @@ function init() {
   }
 
   function loadInteractiveBrother() {
-    loadGLTF("./public/01_primo_fratello_gui_def.glb")
+    return loadGLTF("./public/01_primo_fratello_gui_def.glb")
       .then((gltf) => {
         model = gltf.scene;
         placeModel(model, {
@@ -223,8 +246,12 @@ function init() {
         });
 
         createGUI(model, gltf.animations);
+        completeLoadingStep();
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        console.error(e);
+        throw e;
+      });
   }
 
   function loadDefaultCharacters() {
@@ -429,20 +456,21 @@ function init() {
       },
     ];
 
-    loadWithConcurrency(defaultCharacters, addAnimatedModel, 3);
+    return loadWithConcurrency(defaultCharacters, addAnimatedModel, 3);
   }
 
   loadGLTF("./public/00_scena_pre_prova.glb")
-    .then((gltf) => {
+    .then(async (gltf) => {
       model = gltf.scene;
       placeModel(model, {
         scale: [0.7, 0.7, 0.7],
         position: [0, 0, 0],
         rotation: [0, 5, 0],
       });
+      completeLoadingStep();
+      await Promise.all([loadInteractiveBrother(), loadDefaultCharacters()]);
+      updateLoadingProgress(100);
       hideLoadingScreen();
-      loadInteractiveBrother();
-      loadDefaultCharacters();
     })
     .catch((e) => console.error(e));
 
