@@ -1,13 +1,13 @@
 ///mettere inizializzazioni di variabili e funzioni prima, poi dichiariamo le funzioni
 
-import * as THREE from "three";
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js";
 
-import Stats from "three/addons/libs/stats.module.js";
-import { GUI } from "three/addons/libs/lil-gui.module.min.js";
+import Stats from "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/libs/stats.module.js";
+import { GUI } from "https://cdn.jsdelivr.net/npm/lil-gui@0.18.0/dist/lil-gui.esm.min.js";
 
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/GLTFLoader.js";
 
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/controls/OrbitControls.js";
 
 import { init_fire } from "./modules/fire.js";
 import { init_smoke } from "./modules/smoke.js";
