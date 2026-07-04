@@ -53,8 +53,30 @@ let model_13,
   mixer_def_18;
 
 const api = { state: "riposo" }; //animazione al caricamento
+let loadingScreenHidden = false;
 
 init();
+
+function hideLoadingScreen() {
+  if (loadingScreenHidden) return;
+  loadingScreenHidden = true;
+
+  const loadingScreen = document.getElementById("loading-screen");
+  const loadingBarFill = document.getElementById("loading-bar-fill");
+  const loadingPercentage = document.getElementById("loading-percentage");
+
+  if (loadingBarFill) loadingBarFill.style.width = "100%";
+  if (loadingPercentage) loadingPercentage.textContent = "100%";
+
+  if (loadingScreen) {
+    loadingScreen.classList.add("loading-screen--hidden");
+    loadingScreen.addEventListener(
+      "transitionend",
+      () => loadingScreen.remove(),
+      { once: true },
+    );
+  }
+}
 
 function init() {
   container = document.createElement("div");
@@ -77,17 +99,7 @@ function init() {
   };
 
   loadingManager.onLoad = function () {
-    if (loadingBarFill) loadingBarFill.style.width = "100%";
-    if (loadingPercentage) loadingPercentage.textContent = "100%";
-
-    if (loadingScreen) {
-      loadingScreen.classList.add("loading-screen--hidden");
-      loadingScreen.addEventListener(
-        "transitionend",
-        () => loadingScreen.remove(),
-        { once: true },
-      );
-    }
+    hideLoadingScreen();
   };
 
   loadingManager.onError = function (url) {
@@ -140,6 +152,7 @@ function init() {
     model.position.set(0, 0, 0);
     model.rotation.set(0, 5, 0);
     scene.add(model);
+    hideLoadingScreen();
   });
 
   //IMPORTARE IL MODELLO GLB2 - controllo utente con GUI
