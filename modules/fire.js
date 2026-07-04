@@ -1,4 +1,4 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js";
+import * as THREE from "three";
 import { getParticleSystem } from "../particle_systems/getParticleSystem.js";
 import { getParticleSystem_fire_linear } from "../particle_systems/getParticleSystem_fire_linear.js";
 

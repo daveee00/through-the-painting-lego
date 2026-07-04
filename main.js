@@ -1,13 +1,13 @@
 ///mettere inizializzazioni di variabili e funzioni prima, poi dichiariamo le funzioni
 
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js";
+import * as THREE from "three";
 
-import Stats from "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/libs/stats.module.js";
-import { GUI } from "https://cdn.jsdelivr.net/npm/lil-gui@0.18.0/dist/lil-gui.esm.min.js";
+import Stats from "three/addons/libs/stats.module.js";
+import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import { init_fire } from "./modules/fire.js";
 import { init_smoke } from "./modules/smoke.js";
@@ -134,7 +134,7 @@ function init() {
 
   //SCENA
   const loader_scene = new GLTFLoader(loadingManager);
-  loader_scene.load("/00_scena_pre_prova.glb", function (gltf) {
+  loader_scene.load("./public/00_scena_pre_prova.glb", function (gltf) {
     model = gltf.scene;
     model.scale.set(0.7, 0.7, 0.7);
     model.position.set(0, 0, 0);
@@ -146,7 +146,7 @@ function init() {
 
   const loader = new GLTFLoader(loadingManager);
   loader.load(
-    "/01_primo_fratello_gui_def.glb",
+    "./public/01_primo_fratello_gui_def.glb",
     function (gltf) {
       model = gltf.scene;
       model.scale.set(0.8, 0.8, 0.8);
@@ -169,7 +169,7 @@ function init() {
   //fratello 2 - davanti sx
   const loader2 = new GLTFLoader(loadingManager);
   loader2.load(
-    "/02_fratello2_animazione.glb",
+    "./public/02_fratello2_animazione.glb",
     function (gltf) {
       model_1 = gltf.scene;
       model_1.scale.set(0.8, 0.8, 0.8);
@@ -194,7 +194,7 @@ function init() {
   //soldato combatte davanti - sx
   const loader3 = new GLTFLoader(loadingManager);
   loader3.load(
-    "/04_soldato_rosso_affondo.glb",
+    "./public/04_soldato_rosso_affondo.glb",
     function (gltf) {
       model_2 = gltf.scene;
       model_2.scale.set(0.8, 0.8, 0.8);
@@ -219,7 +219,7 @@ function init() {
   //soldato combatte davanti - dx
   const loader4 = new GLTFLoader(loadingManager);
   loader4.load(
-    "/05_soldato_avversario_affondo.glb",
+    "./public/05_soldato_avversario_affondo.glb",
     function (gltf) {
       model_3 = gltf.scene;
       model_3.scale.set(0.8, 0.8, 0.8);
@@ -244,7 +244,7 @@ function init() {
   //soldato combatte vicino tempio sx - avanti
   const loader5 = new GLTFLoader(loadingManager);
   loader5.load(
-    "/04_soldato_rosso_affondo.glb",
+    "./public/04_soldato_rosso_affondo.glb",
     function (gltf) {
       model_4 = gltf.scene;
       model_4.scale.set(0.8, 0.8, 0.8);
@@ -269,7 +269,7 @@ function init() {
   //soldato combatte vicino tempio sx - indietro
   const loader6 = new GLTFLoader(loadingManager);
   loader6.load(
-    "/05_soldato_avversario_affondo.glb",
+    "./public/05_soldato_avversario_affondo.glb",
     function (gltf) {
       model_5 = gltf.scene;
       model_5.scale.set(0.8, 0.8, 0.8);
@@ -294,7 +294,7 @@ function init() {
   //soldato agonizzante a terra davanti
   const loader7 = new GLTFLoader(loadingManager);
   loader7.load(
-    "/06_soldato_ferito_terra.glb",
+    "./public/06_soldato_ferito_terra.glb",
     function (gltf) {
       model_6 = gltf.scene;
       model_6.scale.set(0.8, 0.8, 0.8);
@@ -319,7 +319,7 @@ function init() {
   //soldato che muore - sotto porticato
   const loader8 = new GLTFLoader(loadingManager);
   loader8.load(
-    "/10_soldato_ucciso.glb",
+    "./public/10_soldato_ucciso.glb",
     function (gltf) {
       model_7 = gltf.scene;
       model_7.scale.set(0.8, 0.8, 0.8);
@@ -344,7 +344,7 @@ function init() {
   //soldato che uccide - sotto porticato
   const loader9 = new GLTFLoader(loadingManager);
   loader9.load(
-    "/04_soldato_rosso_affondo.glb",
+    "./public/04_soldato_rosso_affondo.glb",
     function (gltf) {
       model_8 = gltf.scene;
       model_8.scale.set(0.8, 0.8, 0.8);
@@ -369,7 +369,7 @@ function init() {
   //civile spaventato - verde – di fianco tempio dx
   const loader10 = new GLTFLoader(loadingManager);
   loader10.load(
-    "/10_civile_spaventato.glb",
+    "./public/10_civile_spaventato.glb",
     function (gltf) {
       model_9 = gltf.scene;
       model_9.scale.set(0.8, 0.8, 0.8);
@@ -394,7 +394,7 @@ function init() {
   //civile spaventato - gialla - dietro tempio sx
   const loader11 = new GLTFLoader(loadingManager);
   loader11.load(
-    "/09_civile_giallo_spaventato.glb",
+    "./public/09_civile_giallo_spaventato.glb",
     function (gltf) {
       model_10 = gltf.scene;
       model_10.scale.set(0.8, 0.8, 0.8);
@@ -419,7 +419,7 @@ function init() {
   // terzo fratello - dx - blu
   const loader12 = new GLTFLoader(loadingManager);
   loader12.load(
-    "/03_terzo_fratello.glb",
+    "./public/03_terzo_fratello.glb",
     function (gltf) {
       model_11 = gltf.scene;
       model_11.scale.set(0.8, 0.8, 0.8);
@@ -444,7 +444,7 @@ function init() {
   //donna agitata dietro tempio sx
   const loader13 = new GLTFLoader(loadingManager);
   loader13.load(
-    "/donna2_waving.glb",
+    "./public/donna2_waving.glb",
     function (gltf) {
       model_12 = gltf.scene;
       model_12.scale.set(0.8, 0.8, 0.8);
@@ -469,7 +469,7 @@ function init() {
   //donna in fondo che si agita
   const loader14 = new GLTFLoader(loadingManager);
   loader14.load(
-    "/donna2_waving.glb",
+    "./public/donna2_waving.glb",
     function (gltf) {
       model_13 = gltf.scene;
       model_13.scale.set(0.6, 0.6, 0.6);
@@ -494,7 +494,7 @@ function init() {
   //civile verde vicino tempio dx
   const loader15 = new GLTFLoader(loadingManager);
   loader15.load(
-    "/08_civile_verde_ferito.glb",
+    "./public/08_civile_verde_ferito.glb",
     function (gltf) {
       model_14 = gltf.scene;
       model_14.scale.set(0.8, 0.8, 0.8);
@@ -519,7 +519,7 @@ function init() {
   //soldato combatte davanti case 1
   const loader16 = new GLTFLoader(loadingManager);
   loader16.load(
-    "/04_soldato_rosso_affondo.glb",
+    "./public/04_soldato_rosso_affondo.glb",
     function (gltf) {
       model_15 = gltf.scene;
       model_15.scale.set(0.8, 0.8, 0.8);
@@ -544,7 +544,7 @@ function init() {
   //soldato combatte davanti case 2
   const loader17 = new GLTFLoader(loadingManager);
   loader17.load(
-    "/05_soldato_avversario_affondo.glb",
+    "./public/05_soldato_avversario_affondo.glb",
     function (gltf) {
       model_16 = gltf.scene;
       model_16.scale.set(0.8, 0.8, 0.8);
@@ -569,7 +569,7 @@ function init() {
   //soldato 2 scale sx
   const loader18 = new GLTFLoader(loadingManager);
   loader18.load(
-    "/04_soldato_rosso_affondo.glb",
+    "./public/04_soldato_rosso_affondo.glb",
     function (gltf) {
       model_17 = gltf.scene;
       model_17.scale.set(0.8, 0.8, 0.8);
@@ -594,7 +594,7 @@ function init() {
   //soldato 2 scale sx
   const loader19 = new GLTFLoader(loadingManager);
   loader19.load(
-    "/05_soldato_avversario_affondo.glb",
+    "./public/05_soldato_avversario_affondo.glb",
     function (gltf) {
       model_18 = gltf.scene;
       model_18.scale.set(0.8, 0.8, 0.8);
