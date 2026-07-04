@@ -1,3 +1,18 @@
 [build]
   publish = "dist"
   command = "rm -rf dist && mkdir dist && cp -R index.html main.js modules particle_systems public textures README.txt dist/ && find dist -name '.DS_Store' -delete && find dist -name '._*' -delete"
+
+[[headers]]
+  for = "/public/*.glb"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/textures/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
